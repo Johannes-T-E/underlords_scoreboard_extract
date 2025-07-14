@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-07-14T22:27:39.316896",
+  "source_image": "C:/Users/johan/Desktop/Programmering_V3/underlords_scoreboard_extract/assets/templates/screenshots_for_templates/SS_20.png",
+  "hero_mappings": {
+    "row4crew6": "dragon_knight"
+  },
+  "extracted_count": 1,
+  "failed_extractions": [],
+  "output_directory": "custom_templates"
+}

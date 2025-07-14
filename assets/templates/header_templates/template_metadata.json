@@ -1,0 +1,101 @@
+{
+  "PLAYER": {
+    "path": "header_templates\\player_template.png",
+    "size": [
+      61,
+      12
+    ],
+    "original_pos": [
+      120,
+      70
+    ]
+  },
+  "HEALTH": {
+    "path": "header_templates\\health_template.png",
+    "size": [
+      69,
+      12
+    ],
+    "original_pos": [
+      349,
+      70
+    ]
+  },
+  "RECORD": {
+    "path": "header_templates\\record_template.png",
+    "size": [
+      71,
+      12
+    ],
+    "original_pos": [
+      493,
+      70
+    ]
+  },
+  "NETWORTH": {
+    "path": "header_templates\\networth_template.png",
+    "size": [
+      108,
+      12
+    ],
+    "original_pos": [
+      626,
+      70
+    ]
+  },
+  "ALLIANCES": {
+    "path": "header_templates\\alliances_template.png",
+    "size": [
+      94,
+      12
+    ],
+    "original_pos": [
+      785,
+      70
+    ]
+  },
+  "CREW": {
+    "path": "header_templates\\crew_template.png",
+    "size": [
+      50,
+      12
+    ],
+    "original_pos": [
+      1021,
+      70
+    ]
+  },
+  "UNDERLORD": {
+    "path": "header_templates\\underlord_template.png",
+    "size": [
+      108,
+      12
+    ],
+    "original_pos": [
+      1481,
+      70
+    ]
+  },
+  "CONTRAPTIONS": {
+    "path": "header_templates\\contraptions_template.png",
+    "size": [
+      142,
+      12
+    ],
+    "original_pos": [
+      1668,
+      70
+    ]
+  },
+  "BENCH": {
+    "path": "header_templates\\bench_template.png",
+    "size": [
+      58,
+      12
+    ],
+    "original_pos": [
+      1855,
+      70
+    ]
+  }
+}

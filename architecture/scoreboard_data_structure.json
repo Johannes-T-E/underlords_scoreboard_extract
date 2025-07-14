@@ -1,0 +1,86 @@
+{
+  "scoreboard": {
+    "metadata": {
+      "round": 15,
+      "game_id": "unique_game_identifier",
+      "timestamp": "2024-01-01T12:00:00Z",
+      "game_mode": "ranked",
+      "lobby_size": 8,
+      "current_phase": "combat",
+      "time_remaining": 30
+    },
+    "players": [
+      {
+        "player_name": "Juniper",
+        "position": 1,
+        "level": 7,
+        "gold": 32,
+        "health": 51,
+        "max_health": 100,
+        "wins": 18,
+        "losses": 7,
+        "net_worth": 192,
+        "winstreak": 3,
+        "is_eliminated": false,
+        "avatar": "avatar_url_or_id",
+        "crew": [
+          {
+            "unit_name": "Pudge",
+            "level": 2,
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "items": [
+              {
+                "name": "Heartless Locket",
+                "id": "item_id"
+              }
+            ],
+            "alliance": "heartless",
+            "cost": 1,
+            "health": 100,
+            "max_health": 100,
+            "mana": 50,
+            "max_mana": 100
+          }
+        ],
+        "bench": [
+          {
+            "unit_name": "Ogre Magi",
+            "level": 1,
+            "items": [],
+            "alliance": "mage",
+            "cost": 1,
+            "health": 100,
+            "max_health": 100,
+            "mana": 0,
+            "max_mana": 100
+          }
+        ],
+        "items": [
+          {
+            "name": "Completed Item",
+            "id": "item_id",
+            "type": "equipment"
+          }
+        ]
+      }
+    ],
+    "alliances": [
+      {
+        "name": "heartless",
+        "active_level": 2,
+        "required_units": 2,
+        "current_units": 2,
+        "bonus_description": "Armor reduction"
+      }
+    ],
+    "extraction_info": {
+      "confidence": 0.95,
+      "extraction_time": "2024-01-01T12:00:00Z",
+      "errors": [],
+      "partial_data": false
+    }
+  }
+} 

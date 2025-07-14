@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota Underlords Scoreboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dota Underlords Scoreboard</h1>
+        
+        <!-- File Upload Section -->
+        <div class="file-upload-section" style="display: none;">
+            <div class="upload-container">
+                <input type="file" id="jsonFileInput" accept=".json" class="file-input">
+                <label for="jsonFileInput" class="file-label">
+                    <span class="upload-text">📁 Load Scoreboard JSON</span>
+                </label>
+                <div class="file-info">
+                    <span id="fileName" class="file-name"></span>
+                    <span id="fileStatus" class="file-status"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="loading hide">
+            <div class="spinner"></div>
+            <span>Loading scoreboard data...</span>
+        </div>
+
+        <!-- Error message -->
+        <div id="errorMessage" class="error-message hide">
+            <span class="error-text"></span>
+        </div>
+
+        <!-- Scoreboard Table -->
+        <div id="scoreboard" class="scoreboard hide">
+            <!-- Header -->
+            <div class="section-prefix">
+                <div class="header header-prefix">
+                    <div class="col-place">Pos</div>
+                    <div class="col-player">Player</div>
+                </div>
+                <div id="playersPrefix" class="players-prefix"></div>
+            </div>
+
+            <div class="section-scrollable">
+                <div class="header header-scrollable">
+                    <div class="col-health sortable" data-sort="health">Health</div>
+                    <div class="col-record sortable" data-sort="record">Record</div>
+                    <div class="col-networth sortable" data-sort="networth">Net Worth</div>
+                    <div class="col-roster">Crew</div>
+                    <div class="col-bench">Bench</div>
+                </div>
+                <div id="playersScrollable" class="players-scrollable"></div>
+            </div>
+        </div>
+
+        <!-- Metadata Display -->
+        <div id="metadata" class="metadata hide">
+            <div class="metadata-content">
+                <div class="metadata-item">
+                    <span class="metadata-label">Players:</span>
+                    <span id="totalPlayers" class="metadata-value">0</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Extraction Time:</span>
+                    <span id="extractionTime" class="metadata-value">0s</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Crew Units:</span>
+                    <span id="crewUnits" class="metadata-value">0</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-label">Bench Units:</span>
+                    <span id="benchUnits" class="metadata-value">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
