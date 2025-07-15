@@ -8,45 +8,68 @@
       "NETWORTH",
       "ALLIANCES",
       "CREW",
-      "UNDERLORD",
-      "CONTRAPTIONS",
-      "BENCH"
+      "UNDERLORD"
     ],
-    "extraction_time": 0.6105353832244873,
-    "image_path": "assets/templates/screenshots_for_templates/SS_08.png",
+    "extraction_time": 0.18258047103881836,
+    "image_path": "assets/templates/screenshots_for_templates/SS_18.png",
+    "timing_breakdown": {
+      "Image Loading": 0.04899907112121582,
+      "Header Detection": 0.014000177383422852,
+      "Crew/Bench Extraction": 0.0670006275177002,
+      "Player Extraction": 0.02058124542236328,
+      "Health Extraction": 0.008999109268188477,
+      "Record Extraction": 0.013001203536987305,
+      "NetWorth Extraction": 0.00999903678894043,
+      "Data Combination": 0.0
+    },
     "extraction_summary": {
       "players_with_names": 8,
       "players_with_health": 8,
       "players_with_record": 8,
       "players_with_networth": 8,
-      "total_crew_units": 26,
-      "total_bench_units": 33
+      "total_crew_units": 53,
+      "total_bench_units": 0
     }
   },
   "players": [
     {
       "row_number": 0,
       "position": 1,
-      "player_name": "Sylvie Bot",
-      "level": 3,
-      "gold": 30,
-      "health": 100,
-      "wins": 4,
-      "losses": 0,
-      "networth": 40,
+      "player_name": "Kælle",
+      "level": 5,
+      "gold": 0,
+      "health": 86,
+      "wins": 20,
+      "losses": 3,
+      "networth": 122,
       "crew": [
         {
-          "hero_name": "furion",
+          "hero_name": "legion_commander",
           "confidence": 1.0,
-          "star_level": 1
+          "star_level": 2
         },
         {
           "hero_name": "bristleback",
-          "confidence": 0.9999999403953552,
-          "star_level": 1
+          "confidence": 0.9786418676376343,
+          "star_level": 2
         },
         {
-          "hero_name": "meepo",
+          "hero_name": "snapfire",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "beastmaster",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "juggernaut",
+          "confidence": 0.9948238730430603,
+          "star_level": 2
+        },
+        {
+          "hero_name": "slark",
           "confidence": 1.0,
           "star_level": 1
         }
@@ -60,56 +83,60 @@
       "row_number": 1,
       "position": 2,
       "player_name": "Jia Bot",
-      "level": 3,
-      "gold": 21,
-      "health": 100,
-      "wins": 4,
-      "losses": 0,
-      "networth": 38,
+      "level": 9,
+      "gold": 31,
+      "health": 62,
+      "wins": 18,
+      "losses": 6,
+      "networth": 272,
       "crew": [
+        {
+          "hero_name": "dazzle",
+          "confidence": 0.9644572138786316,
+          "star_level": 2
+        },
+        {
+          "hero_name": "viper",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "mirana",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "omniknight",
+          "confidence": 0.9872032403945923,
+          "star_level": 2
+        },
+        {
+          "hero_name": "windrunner",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "venomancer",
+          "confidence": 0.9812833666801453,
+          "star_level": 2
+        },
+        {
+          "hero_name": "tidehunter",
+          "confidence": 1.0,
+          "star_level": 1
+        },
+        {
+          "hero_name": "death_prophet",
+          "confidence": 1.0,
+          "star_level": 1
+        },
         {
           "hero_name": "shadow_shaman",
           "confidence": 1.0,
           "star_level": 1
-        },
-        {
-          "hero_name": "luna",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "windrunner",
-          "confidence": 1.0,
-          "star_level": 1
         }
       ],
-      "bench": [
-        {
-          "hero_name": "dazzle",
-          "confidence": 0.9592537879943848,
-          "star_level": 1
-        },
-        {
-          "hero_name": "dazzle",
-          "confidence": 0.9592537879943848,
-          "star_level": 1
-        },
-        {
-          "hero_name": "antimage",
-          "confidence": 0.9795074462890625,
-          "star_level": 1
-        },
-        {
-          "hero_name": "venomancer",
-          "confidence": 0.9812764525413513,
-          "star_level": 1
-        },
-        {
-          "hero_name": "windrunner",
-          "confidence": 0.9846751093864441,
-          "star_level": 1
-        }
-      ],
+      "bench": [],
       "alliances": [],
       "underlord": null,
       "contraption": null
@@ -117,139 +144,48 @@
     {
       "row_number": 2,
       "position": 3,
-      "player_name": "Luiza Bot",
-      "level": 3,
-      "gold": 17,
-      "health": 99,
-      "wins": 3,
-      "losses": 1,
-      "networth": 35,
+      "player_name": "Amina Bot",
+      "level": 9,
+      "gold": 6,
+      "health": 28,
+      "wins": 8,
+      "losses": 14,
+      "networth": 228,
       "crew": [
         {
-          "hero_name": "abaddon",
-          "confidence": 1.0,
-          "star_level": 1
+          "hero_name": "beastmaster",
+          "confidence": 0.9415959119796753,
+          "star_level": 2
         },
         {
-          "hero_name": "pudge",
-          "confidence": 1.0,
-          "star_level": 1
+          "hero_name": "puck",
+          "confidence": 0.9948329329490662,
+          "star_level": 2
         },
         {
-          "hero_name": "shadow_demon",
-          "confidence": 1.0,
-          "star_level": 1
-        }
-      ],
-      "bench": [
-        {
-          "hero_name": "crystal_maiden",
-          "confidence": 0.98213791847229,
-          "star_level": 1
+          "hero_name": "alchemist",
+          "confidence": 0.9821797013282776,
+          "star_level": 2
         },
         {
-          "hero_name": "tusk",
-          "confidence": 0.9692594408988953,
-          "star_level": 1
+          "hero_name": "queenofpain",
+          "confidence": 0.9768434762954712,
+          "star_level": 2
         },
-        {
-          "hero_name": "storm_spirit",
-          "confidence": 0.9467809200286865,
-          "star_level": 1
-        },
-        {
-          "hero_name": "shadow_demon",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "storm_spirit",
-          "confidence": 0.9467809200286865,
-          "star_level": 1
-        },
-        {
-          "hero_name": "tusk",
-          "confidence": 0.9692594408988953,
-          "star_level": 1
-        }
-      ],
-      "alliances": [],
-      "underlord": null,
-      "contraption": null
-    },
-    {
-      "row_number": 3,
-      "position": 4,
-      "player_name": "Kælle",
-      "level": 3,
-      "gold": 15,
-      "health": 96,
-      "wins": 2,
-      "losses": 2,
-      "networth": 33,
-      "crew": [
         {
           "hero_name": "snapfire",
-          "confidence": 1.0,
+          "confidence": 0.9770433306694031,
           "star_level": 2
         },
         {
-          "hero_name": "juggernaut",
-          "confidence": 0.9948238730430603,
+          "hero_name": "axe",
+          "confidence": 0.9643552303314209,
           "star_level": 1
         },
         {
-          "hero_name": "bristleback",
-          "confidence": 0.9786418676376343,
+          "hero_name": "viper",
+          "confidence": 0.986665666103363,
           "star_level": 1
-        }
-      ],
-      "bench": [
-        {
-          "hero_name": "legion_commander",
-          "confidence": 0.9883722066879272,
-          "star_level": 1
-        },
-        {
-          "hero_name": "batrider",
-          "confidence": 0.9949102997779846,
-          "star_level": 1
-        },
-        {
-          "hero_name": "drow_ranger",
-          "confidence": 0.9644384384155273,
-          "star_level": 1
-        },
-        {
-          "hero_name": "meepo",
-          "confidence": 0.961724042892456,
-          "star_level": 1
-        },
-        {
-          "hero_name": "magnataur",
-          "confidence": 0.9744850993156433,
-          "star_level": 1
-        }
-      ],
-      "alliances": [],
-      "underlord": null,
-      "contraption": null
-    },
-    {
-      "row_number": 4,
-      "position": 5,
-      "player_name": "Nguyen Bot",
-      "level": 3,
-      "gold": 21,
-      "health": 95,
-      "wins": 1,
-      "losses": 3,
-      "networth": 33,
-      "crew": [
-        {
-          "hero_name": "antimage",
-          "confidence": 1.0,
-          "star_level": 2
         },
         {
           "hero_name": "juggernaut",
@@ -257,23 +193,141 @@
           "star_level": 1
         },
         {
-          "hero_name": "drow_ranger",
-          "confidence": 0.9435372948646545,
+          "hero_name": "dazzle",
+          "confidence": 1.0,
           "star_level": 1
         }
       ],
-      "bench": [
+      "bench": [],
+      "alliances": [],
+      "underlord": null,
+      "contraption": null
+    },
+    {
+      "row_number": 3,
+      "position": 4,
+      "player_name": "Alicia Bot",
+      "level": 10,
+      "gold": 1,
+      "health": 25,
+      "wins": 12,
+      "losses": 12,
+      "networth": 251,
+      "crew": [
         {
-          "hero_name": "vengefulspirit",
-          "confidence": 0.9838060140609741,
+          "hero_name": "treant",
+          "confidence": 0.9896906614303589,
+          "star_level": 2
+        },
+        {
+          "hero_name": "lycan",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "enchantress",
+          "confidence": 0.9947632551193237,
+          "star_level": 2
+        },
+        {
+          "hero_name": "tusk",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "venomancer",
+          "confidence": 0.9812833666801453,
+          "star_level": 2
+        },
+        {
+          "hero_name": "medusa",
+          "confidence": 1.0,
           "star_level": 1
         },
         {
-          "hero_name": "drow_ranger",
-          "confidence": 0.9409239292144775,
+          "hero_name": "lone_druid",
+          "confidence": 0.9789532423019409,
+          "star_level": 1
+        },
+        {
+          "hero_name": "beastmaster",
+          "confidence": 0.9871915578842163,
+          "star_level": 1
+        },
+        {
+          "hero_name": "furion",
+          "confidence": 0.9839203357696533,
+          "star_level": 1
+        },
+        {
+          "hero_name": "magnataur",
+          "confidence": 0.9692075848579407,
           "star_level": 1
         }
       ],
+      "bench": [],
+      "alliances": [],
+      "underlord": null,
+      "contraption": null
+    },
+    {
+      "row_number": 4,
+      "position": 5,
+      "player_name": "Luiza Bot",
+      "level": 9,
+      "gold": 8,
+      "health": 18,
+      "wins": 12,
+      "losses": 12,
+      "networth": 229,
+      "crew": [
+        {
+          "hero_name": "doom_bringer",
+          "confidence": 0.9286487698554993,
+          "star_level": 2
+        },
+        {
+          "hero_name": "abaddon",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "life_stealer",
+          "confidence": 0.9820636510848999,
+          "star_level": 2
+        },
+        {
+          "hero_name": "pudge",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "spirit_breaker",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "vengefulspirit",
+          "confidence": 0.9596031904220581,
+          "star_level": 2
+        },
+        {
+          "hero_name": "lone_druid",
+          "confidence": 1.0,
+          "star_level": 1
+        },
+        {
+          "hero_name": "death_prophet",
+          "confidence": 0.9865427017211914,
+          "star_level": 1
+        },
+        {
+          "hero_name": "alchemist",
+          "confidence": 0.9821797013282776,
+          "star_level": 1
+        }
+      ],
+      "bench": [],
       "alliances": [],
       "underlord": null,
       "contraption": null
@@ -281,62 +335,66 @@
     {
       "row_number": 5,
       "position": 6,
-      "player_name": "Amina Bot",
-      "level": 3,
-      "gold": 17,
-      "health": 95,
-      "wins": 2,
-      "losses": 2,
-      "networth": 35,
+      "player_name": "Sylvie Bot",
+      "level": 10,
+      "gold": 7,
+      "health": 16,
+      "wins": 8,
+      "losses": 12,
+      "networth": 244,
       "crew": [
         {
-          "hero_name": "alchemist",
+          "hero_name": "viper",
+          "confidence": 1.0,
+          "star_level": 2
+        },
+        {
+          "hero_name": "medusa",
           "confidence": 1.0,
           "star_level": 1
         },
         {
-          "hero_name": "juggernaut",
+          "hero_name": "faceless_void",
+          "confidence": 0.9881789088249207,
+          "star_level": 1
+        },
+        {
+          "hero_name": "templar_assassin",
           "confidence": 1.0,
           "star_level": 1
         },
         {
-          "hero_name": "queenofpain",
+          "hero_name": "lone_druid",
+          "confidence": 0.9789532423019409,
+          "star_level": 1
+        },
+        {
+          "hero_name": "lone_druid",
+          "confidence": 0.9789532423019409,
+          "star_level": 1
+        },
+        {
+          "hero_name": "sven",
+          "confidence": 1.0,
+          "star_level": 1
+        },
+        {
+          "hero_name": "sven",
+          "confidence": 1.0,
+          "star_level": 1
+        },
+        {
+          "hero_name": "death_prophet",
+          "confidence": 1.0,
+          "star_level": 1
+        },
+        {
+          "hero_name": "pangolier",
           "confidence": 1.0,
           "star_level": 1
         }
       ],
-      "bench": [
-        {
-          "hero_name": "drow_ranger",
-          "confidence": 0.966819167137146,
-          "star_level": 1
-        },
-        {
-          "hero_name": "drow_ranger",
-          "confidence": 0.966819167137146,
-          "star_level": 1
-        },
-        {
-          "hero_name": "vengefulspirit",
-          "confidence": 0.9972918033599854,
-          "star_level": 1
-        },
-        {
-          "hero_name": "luna",
-          "confidence": 0.974312961101532,
-          "star_level": 1
-        },
-        {
-          "hero_name": "snapfire",
-          "confidence": 0.9848078489303589,
-          "star_level": 1
-        },
-        {
-          "hero_name": "vengefulspirit",
-          "confidence": 0.9972918033599854,
-          "star_level": 1
-        }
-      ],
+      "bench": [],
       "alliances": [],
       "underlord": null,
       "contraption": null
@@ -344,67 +402,15 @@
     {
       "row_number": 6,
       "position": 7,
-      "player_name": "Alicia Bot",
-      "level": 4,
-      "gold": 13,
-      "health": 90,
-      "wins": 0,
-      "losses": 4,
-      "networth": 34,
-      "crew": [
-        {
-          "hero_name": "treant",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "tusk",
-          "confidence": 0.974381148815155,
-          "star_level": 1
-        },
-        {
-          "hero_name": "slardar",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "venomancer",
-          "confidence": 1.0,
-          "star_level": 1
-        }
-      ],
-      "bench": [
-        {
-          "hero_name": "lich",
-          "confidence": 0.994896650314331,
-          "star_level": 1
-        },
-        {
-          "hero_name": "venomancer",
-          "confidence": 0.9920244216918945,
-          "star_level": 1
-        },
-        {
-          "hero_name": "crystal_maiden",
-          "confidence": 0.98213791847229,
-          "star_level": 1
-        },
-        {
-          "hero_name": "shadow_demon",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "crystal_maiden",
-          "confidence": 0.98213791847229,
-          "star_level": 1
-        },
-        {
-          "hero_name": "tusk",
-          "confidence": 0.9692594408988953,
-          "star_level": 1
-        }
-      ],
+      "player_name": "Ricardo Bot",
+      "level": 8,
+      "gold": 9,
+      "health": 0,
+      "wins": 7,
+      "losses": 16,
+      "networth": 122,
+      "crew": [],
+      "bench": [],
       "alliances": [],
       "underlord": null,
       "contraption": null
@@ -412,52 +418,15 @@
     {
       "row_number": 7,
       "position": 8,
-      "player_name": "Ricardo Bot",
-      "level": 4,
-      "gold": 12,
-      "health": 90,
-      "wins": 0,
-      "losses": 4,
-      "networth": 34,
-      "crew": [
-        {
-          "hero_name": "enchantress",
-          "confidence": 0.9947632551193237,
-          "star_level": 2
-        },
-        {
-          "hero_name": "abaddon",
-          "confidence": 0.9803899526596069,
-          "star_level": 1
-        },
-        {
-          "hero_name": "batrider",
-          "confidence": 1.0,
-          "star_level": 1
-        },
-        {
-          "hero_name": "dazzle",
-          "confidence": 0.9644572138786316,
-          "star_level": 1
-        }
-      ],
-      "bench": [
-        {
-          "hero_name": "lich",
-          "confidence": 0.9744751453399658,
-          "star_level": 1
-        },
-        {
-          "hero_name": "lich",
-          "confidence": 0.9744751453399658,
-          "star_level": 1
-        },
-        {
-          "hero_name": "abaddon",
-          "confidence": 0.9771091341972351,
-          "star_level": 1
-        }
-      ],
+      "player_name": "Nguyen Bot",
+      "level": 9,
+      "gold": 11,
+      "health": 0,
+      "wins": 7,
+      "losses": 17,
+      "networth": 159,
+      "crew": [],
+      "bench": [],
       "alliances": [],
       "underlord": null,
       "contraption": null

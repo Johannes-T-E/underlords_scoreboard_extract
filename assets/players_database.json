@@ -1,53 +1,71 @@
 {
-  "next_template_id": 9,
+  "next_template_id": 12,
   "players": {
     "1": {
-      "name": "Kælle",
+      "name": "Luiza Bot",
       "template_path": "assets/templates/players\\player_001.png",
-      "created_at": "2025-07-14T19:56:29.068478",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.239995",
+      "usage_count": 5
     },
     "2": {
-      "name": "Luiza Bot",
+      "name": "Atticus Bot",
       "template_path": "assets/templates/players\\player_002.png",
-      "created_at": "2025-07-14T19:56:29.386819",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.353511",
+      "usage_count": 2
     },
     "3": {
-      "name": "Alicia Bot",
+      "name": "Nguyen Bot",
       "template_path": "assets/templates/players\\player_003.png",
-      "created_at": "2025-07-14T19:56:29.598819",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.472509",
+      "usage_count": 5
     },
     "4": {
-      "name": "Nguyen Bot",
+      "name": "Gwendoline Bot",
       "template_path": "assets/templates/players\\player_004.png",
-      "created_at": "2025-07-14T19:56:29.824382",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.582141",
+      "usage_count": 2
     },
     "5": {
-      "name": "Ricardo Bot",
+      "name": "Juanita Bot",
       "template_path": "assets/templates/players\\player_005.png",
-      "created_at": "2025-07-14T19:56:29.939815",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.692533",
+      "usage_count": 2
     },
     "6": {
-      "name": "Amina Bot",
+      "name": "Sylvie Bot",
       "template_path": "assets/templates/players\\player_006.png",
-      "created_at": "2025-07-14T19:56:30.065813",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.796985",
+      "usage_count": 5
     },
     "7": {
-      "name": "Sylvie Bot",
+      "name": "Jia Bot",
       "template_path": "assets/templates/players\\player_007.png",
-      "created_at": "2025-07-14T19:56:30.181812",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:02.910345",
+      "usage_count": 5
     },
     "8": {
-      "name": "Jia Bot",
+      "name": "Kælle",
       "template_path": "assets/templates/players\\player_008.png",
-      "created_at": "2025-07-14T19:56:30.287822",
-      "usage_count": 53
+      "created_at": "2025-07-15T18:12:03.017362",
+      "usage_count": 5
+    },
+    "9": {
+      "name": "Amina Bot",
+      "template_path": "assets/templates/players\\player_009.png",
+      "created_at": "2025-07-15T18:13:04.987315",
+      "usage_count": 3
+    },
+    "10": {
+      "name": "Alicia Bot",
+      "template_path": "assets/templates/players\\player_010.png",
+      "created_at": "2025-07-15T18:13:05.101311",
+      "usage_count": 3
+    },
+    "11": {
+      "name": "Ricardo Bot",
+      "template_path": "assets/templates/players\\player_011.png",
+      "created_at": "2025-07-15T18:13:05.214828",
+      "usage_count": 3
     }
   }
 }
