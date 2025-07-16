@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from utils import load_and_preprocess_image, AnalysisConfig, get_header_positions
+from components.utils import load_and_preprocess_image, AnalysisConfig, get_header_positions
 from main import calculate_slots
 
 def debug_star_detection():

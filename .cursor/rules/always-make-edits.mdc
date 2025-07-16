@@ -1,0 +1,8 @@
+---
+description: |
+  The agent must always perform the requested code or configuration edit directly, without asking for permission, clarification, or confirmation, unless the user explicitly instructs otherwise. The agent should never ask if it should proceed or request additional input before making an edit. If the user’s request is ambiguous, the agent must make a reasonable edit based on the most likely intent, so the user can review, accept, or reject the change.
+globs:
+ - "*"
+modelPreference: "claude-4-sonnet"
+alwaysApply: true
+---

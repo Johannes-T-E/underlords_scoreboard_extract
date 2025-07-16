@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import os
-from utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image, get_header_positions
+from components.utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image, get_header_positions
 
 class AdditionalDataExtractor:
     """Extracts health, record, and net worth areas from screenshots for template creation."""

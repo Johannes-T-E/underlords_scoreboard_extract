@@ -1,0 +1,9 @@
+---
+description: |
+  The agent must always start its answer with
+  #model: [which model it is]
+  where [which model it is] is replaced with the actual model name (e.g., GPT-4.1).
+globs:
+  - "*"
+alwaysApply: true
+---

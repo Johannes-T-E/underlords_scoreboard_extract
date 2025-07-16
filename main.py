@@ -1,13 +1,19 @@
-from utils import AnalysisConfig, get_row_boundaries, load_and_preprocess_image, get_header_positions
+from components.utils import AnalysisConfig, get_row_boundaries, load_and_preprocess_image, get_header_positions
 from components.player_extraction import extract_players_from_scoreboard
 from components.health_extraction import extract_health_from_scoreboard
 from components.record_extraction import extract_record_from_scoreboard
 from components.networth_extraction import extract_networth_from_scoreboard
 from components.crew_bench_extraction import extract_crew_and_bench_from_scoreboard
+from components.overlay_extraction import extract_overlay_from_image
+from components.player_template_manager import PlayerTemplateManager
+from tools.screenshot_tool import UnderlordScreenshotTool
 
+from datetime import datetime
 import time
-
-
+import json
+import os
+import cv2
+import numpy as np
 
 class PerformanceTracker:
     """Tracks performance metrics for different phases."""
@@ -55,7 +61,7 @@ class PerformanceTracker:
 
 
 
-def extract_all_players(image, thresh, header_positions, crew_results, bench_results, config, tracker=None):
+def extract_all_players(image, thresh, header_positions, crew_results, bench_results, config, tracker=None, overlay_name_binaries=None):
     """Extract data for all players and combine into final structure."""
     if config.debug:
         print("\n=== EXTRACTING DATA ===")
@@ -64,7 +70,7 @@ def extract_all_players(image, thresh, header_positions, crew_results, bench_res
     # Extract player data using the new player extraction system
     if config.debug:
         print("\n=== PLAYER COLUMN DATA ===")
-    players_data = extract_players_from_scoreboard(image, config)
+    players_data = extract_players_from_scoreboard(image, config, overlay_name_binaries=overlay_name_binaries)
     if tracker:
         tracker.mark("Player Extraction")
     
@@ -180,16 +186,42 @@ def main(config):
     # If no headers found, abort extraction
     if not header_positions:
         print("No headers found in the image. Extraction aborted.")
+        overlay_values, _ = extract_overlay_from_image(image, config)
+        print(overlay_values)
         return
+
+    # Extract overlay player name binaries for template creation
+    overlay_values, overlay_name_binaries = extract_overlay_from_image(image, config)
 
     # Extract crew and bench data (heroes and star levels)
     crew_results, bench_results = extract_crew_and_bench_from_scoreboard(image, thresh, header_positions, config)
     tracker.mark("Crew/Bench Extraction")
     
     # Extract all player data and combine
-    players = extract_all_players(image, thresh, header_positions, crew_results, bench_results, config, tracker)
+    players = extract_all_players(image, thresh, header_positions, crew_results, bench_results, config, tracker, overlay_name_binaries=overlay_name_binaries)
     tracker.mark("Data Combination")
-    
+    # Only create templates if last overlay was out of combat and overlay_name_binaries_buffer is available
+    if overlay_name_binaries_buffer is not None and last_overlay_was_out_of_combat:
+        from components.player_extraction import PlayerExtractor
+        from components.utils import get_row_boundaries
+        player_extractor = PlayerExtractor()
+        row_boundaries = get_row_boundaries()
+        if overlay_name_binaries_buffer is not None and last_overlay_was_out_of_combat:
+            for row_num, player in enumerate(players):
+                if player.get('_should_create_template'):
+                    player_name = player['player_name']
+                    row_y = row_boundaries[row_num]
+                    scoreboard_crop = player_extractor.extract_player_name_region(image, row_y)
+                    overlay_bin = overlay_name_binaries_buffer[row_num]
+                    # Create scoreboard template and get new template_id
+                    template_id = template_manager.add_new_player(scoreboard_crop, player_name, template_type="scoreboard")
+                    # Also create overlay template with the same template_id
+                    if overlay_bin is not None:
+                        template_manager.add_new_player(overlay_bin, player_name, template_type="overlay", player_id=template_id)
+            print("Created/updated player templates for scoreboard and overlay.")
+            overlay_name_binaries_buffer = None  # Clear after use
+    else:
+        print("Skipping template creation: last overlay was not out of combat or no overlay_name_binaries_buffer.")
         # Create final scoreboard structure
     scoreboard_data = {
         "metadata": {
@@ -275,20 +307,131 @@ def print_scoreboard_data(scoreboard_data):
         print(f"\033[1;34m      Bench: \033[1;37m{bench_heroes}")
         print()
     
-#IMAGE_PATH = "screenshots/SS_Latest.png"
-IMAGE_PATH = "assets/templates/screenshots_for_templates/SS_18.png"
+IMAGE_PATH = "screenshots/SS_Latest.png"
+#IMAGE_PATH = "assets/templates/screenshots_for_templates/SS_18.png"
 if __name__ == "__main__":
-    config = AnalysisConfig(debug=True, show_timing=True, show_visualization=False)
-    # Run the main extraction
-    scoreboard_data = main(config)
-    
-    if scoreboard_data:
-        # Save to JSON file
-        save_scoreboard_data(scoreboard_data)
-        
-        # Print comprehensive data structure
-        #print_metadata(scoreboard_data)
-        #print()
-        print_scoreboard_data(scoreboard_data)
-    else:
-        print("No data extracted")
+    config = AnalysisConfig(debug=False, show_timing=False, show_visualization=False)
+    screenshot_tool = UnderlordScreenshotTool(output_dir="screenshots")
+    print("Starting continuous scoreboard extraction. Press Ctrl+C to stop.")
+    overlay_log_path = "output/overlay_changes_log.jsonl"
+    prev_overlay_values = None
+    iteration = 0
+    overlay_name_binaries_buffer = None
+    template_manager = PlayerTemplateManager()
+    # Add a flag to track overlay state
+    last_overlay_was_out_of_combat = False
+    last_header_positions = None
+    header_stable_count = 0
+    STABILITY_THRESHOLD = 12
+    try:
+        # Try to find the window once at the start
+        if not screenshot_tool.find_underlords_window():
+            print("ERROR: Could not find Dota Underlords window! Make sure the game is running and visible.")
+            exit(1)
+        last_fps_time = time.time()
+        frame_count = 0
+        while True:
+            tracker = PerformanceTracker()
+            tracker.start()
+            tracker.mark("Start")
+            pil_img = screenshot_tool.take_single_screenshot()
+            tracker.mark("Screenshot Capture")
+            if pil_img is None:
+                print("Failed to capture screenshot. Retrying...")
+                continue
+            # Convert PIL image to OpenCV (NumPy) format
+            image = np.array(pil_img)
+            # Convert RGB (PIL) to BGR (OpenCV)
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            # Thresholding or preprocessing as before
+            thresh = None
+            if hasattr(config, 'preprocess_for_thresh') and config.preprocess_for_thresh:
+                # If you have a custom thresholding function, use it
+                thresh = config.preprocess_for_thresh(image)
+            # Ensure thresh is always a valid binary image
+            if thresh is None:
+                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            tracker.mark("Image Load/Preprocess")
+            if image is None:
+                print(f"Failed to load image from screenshot.")
+                continue
+            header_positions = get_header_positions(image)
+            tracker.mark("Header Detection")
+            # Header stability check
+            if header_positions == last_header_positions:
+                header_stable_count += 1
+            else:
+                header_stable_count = 1
+                last_header_positions = header_positions
+            if config.show_timing:
+                print(f"Header Detection: {tracker.times.get('Header Detection', 0):.4f} {tracker.times.get('Image Load/Preprocess', 0):.4f} {tracker.times.get('Screenshot Capture', 0):.4f}")
+            if header_positions and header_stable_count >= STABILITY_THRESHOLD:
+                # === SCOREBOARD STATE ===
+                print("Scoreboard detected, extracting scoreboard data...")
+                crew_results, bench_results = extract_crew_and_bench_from_scoreboard(image, thresh, header_positions, config)
+                players = extract_all_players(image, thresh, header_positions, crew_results, bench_results, config, tracker, overlay_name_binaries=overlay_name_binaries_buffer)
+                tracker.mark("Data Combination")
+                if overlay_name_binaries_buffer is not None and last_overlay_was_out_of_combat:
+                    from components.player_extraction import PlayerExtractor
+                    from components.utils import get_row_boundaries
+                    player_extractor = PlayerExtractor()
+                    row_boundaries = get_row_boundaries()
+                    for row_num, player in enumerate(players):
+                        if player.get('_should_create_template'):
+                            player_name = player['player_name']
+                            row_y = row_boundaries[row_num]
+                            scoreboard_crop = player_extractor.extract_player_name_region(image, row_y)
+                            overlay_bin = overlay_name_binaries_buffer[row_num]
+                            template_id = template_manager.add_new_player(scoreboard_crop, player_name, template_type="scoreboard")
+                            if overlay_bin is not None:
+                                template_manager.add_new_player(overlay_bin, player_name, template_type="overlay", player_id=template_id)
+                    print("Created/updated player templates for scoreboard and overlay.")
+                    overlay_name_binaries_buffer = None  # Clear after use
+                else:
+                    print("Skipping template creation: last overlay was not out of combat or no overlay_name_binaries_buffer.")
+                scoreboard_data = {
+                    "metadata": {
+                        "total_players": len(players),
+                        "headers_found": list(header_positions.keys()),
+                        "extraction_time": tracker.get_total_time(),
+                        "image_path": IMAGE_PATH,
+                        "timing_breakdown": dict(tracker.times),
+                        "extraction_summary": {
+                            "players_with_names": sum(1 for p in players if p["player_name"]),
+                            "players_with_health": sum(1 for p in players if p["health"] is not None),
+                            "players_with_record": sum(1 for p in players if p["wins"] is not None and p["losses"] is not None),
+                            "players_with_networth": sum(1 for p in players if p["networth"] is not None),
+                            "total_crew_units": sum(len(p["crew"]) for p in players),
+                            "total_bench_units": sum(len(p["bench"]) for p in players)
+                        }
+                    },
+                    "players": players
+                }
+                with open("output/scoreboard_data_raw.json", "w", encoding="utf-8") as f:
+                    json.dump(scoreboard_data, f, indent=2, ensure_ascii=False)
+                print_scoreboard_data(scoreboard_data)
+                iteration += 1
+            else:
+                # === OVERLAY STATE ===
+                if config.debug:
+                    print("Overlay detected, extracting overlay data...")
+                if config.show_timing:
+                    tracker.mark("OVERLAY STATE")
+                overlay_values, overlay_name_binaries = extract_overlay_from_image(image, config)
+                if config.show_timing:
+                    tracker.mark("Overlay Extraction")
+                with open("output/overlay_data.json", "w", encoding="utf-8") as f:
+                    json.dump(overlay_values, f, indent=2, ensure_ascii=False)
+                if config.show_timing:
+                    tracker.mark("Write overlay_data.json")
+                iteration += 1
+            # FPS logging
+            frame_count += 1
+            now = time.time()
+            if now - last_fps_time >= 1.0:
+                print(f"FPS: {frame_count / (now - last_fps_time):.2f}")
+                frame_count = 0
+                last_fps_time = now
+    except KeyboardInterrupt:
+        print("\nContinuous extraction stopped by user.")

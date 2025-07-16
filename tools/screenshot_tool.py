@@ -39,9 +39,9 @@ class UnderlordScreenshotTool:
                 windows = gw.getWindowsWithTitle(title)
                 if windows:
                     self.window = windows[0]
-                    print(f"Found Underlords window: '{self.window.title}'")
-                    print(f"Window position: {self.window.left}, {self.window.top}")
-                    print(f"Window size: {self.window.width} x {self.window.height}")
+                    #print(f"Found Underlords window: '{self.window.title}'")
+                    #print(f"Window position: {self.window.left}, {self.window.top}")
+                    #print(f"Window size: {self.window.width} x {self.window.height}")
                     return True
             
             # If exact match fails, try partial match
@@ -49,9 +49,9 @@ class UnderlordScreenshotTool:
             for window in all_windows:
                 if "underlords" in window.title.lower() or "dota" in window.title.lower():
                     self.window = window
-                    print(f"Found possible Underlords window: '{self.window.title}'")
-                    print(f"Window position: {self.window.left}, {self.window.top}")
-                    print(f"Window size: {self.window.width} x {self.window.height}")
+                    #print(f"Found possible Underlords window: '{self.window.title}'")
+                    #print(f"Window position: {self.window.left}, {self.window.top}")
+                    #print(f"Window size: {self.window.width} x {self.window.height}")
                     return True
             
             return False
@@ -108,27 +108,23 @@ class UnderlordScreenshotTool:
 
         return img
 
-    def take_scoreboard_screenshot(self):
-        """Take a screenshot of only the scoreboard area (y=0 to y=733 in window content) using GDI BitBlt."""
+    def take_scoreboard_screenshot(self, save_to_disk=False):
+        """Take a screenshot of only the scoreboard area (y=0 to y=733 in window content) using GDI BitBlt. Returns PIL image."""
         hwnd = self.get_hwnd()
         if not hwnd:
             print("No Underlords window found!")
-            return False
+            return None
         try:
             img = self.capture_window_gdi(hwnd, y_start=37, y_end=770)
-            width, height = img.size
-            # Always use the same filename to overwrite
-            filename = "SS_Latest.png"
-            filepath = os.path.join(self.output_dir, filename)
-            img.save(filepath)
+            if save_to_disk:
+                filename = "SS_Latest.png"
+                filepath = os.path.join(self.output_dir, filename)
+                img.save(filepath)
             self.screenshot_count += 1
-            print(f"Screenshot saved: {filepath}")
-            print(f"Scoreboard area: {width} x {height} pixels (cropped)")
-            print(f"Coordinates: (0, 0) to ({width}, {height}) in scoreboard image")
-            return True
+            return img  # Return the PIL image
         except Exception as e:
             print(f"Error taking screenshot: {e}")
-            return False
+            return None
     
     def refresh_window_info(self):
         """Refresh window information in case it moved or resized."""
@@ -197,11 +193,12 @@ class UnderlordScreenshotTool:
                 print(f"Error in monitoring loop: {e}")
                 time.sleep(1)
     
-    def take_single_screenshot(self):
-        """Take a single screenshot (useful for testing)."""
-        if self.find_underlords_window():
-            return self.take_scoreboard_screenshot()
-        return False
+    def take_single_screenshot(self, save_to_disk=False):
+        """Take a single screenshot and return the PIL image (in memory). Only search for window if lost."""
+        if self.window is None or not self.refresh_window_info():
+            if not self.find_underlords_window():
+                return None
+        return self.take_scoreboard_screenshot(save_to_disk=save_to_disk)
 
 def main():
     import argparse

@@ -17,10 +17,11 @@ class SharedDigitDetector:
         # Template patterns for different extraction types
         template_patterns = {
             'health': r'health_digit_(\d)\.png',
-            'record': r'record_digit_(\d)\.png',
+            'record': r'record_digit_(\d|separator)\.png',
             'networth': r'NetWorth_digit_(\d)\.png',
             'player': r'(\d)\.png',  # Generic digit templates
-            'record_separator': r'record_digit_separator\.png'
+            'overlay': r'overlay_digit_(\d)\.png',
+            'overlay_health': r'overlay_health_digit_(\d)\.png',
         }
         
         # Initialize cache structure
@@ -29,7 +30,8 @@ class SharedDigitDetector:
             'record': {},
             'networth': {},
             'player': {},
-            'record_separator': None
+            'overlay': {},
+            'overlay_health': {},
         }
         
         # Load all template files
@@ -37,22 +39,13 @@ class SharedDigitDetector:
         
         for template_file in template_files:
             filename = os.path.basename(template_file)
-            
-            # Check each pattern
             for template_type, pattern in template_patterns.items():
                 match = re.match(pattern, filename)
                 if match:
-                    if template_type == 'record_separator':
-                        # Special case for separator
-                        template = cv2.imread(template_file, cv2.IMREAD_GRAYSCALE)
-                        if template is not None:
-                            self._templates_cache['record_separator'] = self._convert_to_binary(template)
-                    else:
-                        # Regular digit templates
-                        digit_value = int(match.group(1))
-                        template = cv2.imread(template_file, cv2.IMREAD_GRAYSCALE)
-                        if template is not None:
-                            self._templates_cache[template_type][digit_value] = self._convert_to_binary(template)
+                    key = str(match.group(1))
+                    template = cv2.imread(template_file, cv2.IMREAD_GRAYSCALE)
+                    if template is not None:
+                        self._templates_cache[template_type][key] = self._convert_to_binary(template)
                     break
     
     def _convert_to_binary(self, image):
@@ -70,8 +63,8 @@ class SharedDigitDetector:
         return self._templates_cache.get(template_type, {})
     
     def get_separator_template(self):
-        """Get the record separator template."""
-        return self._templates_cache.get('record_separator')
+        """Get the record separator template from the record templates."""
+        return self._templates_cache['record'].get('separator')
     
     def find_all_digit_matches(self, region, template_type, confidence_threshold=0.97):
         """Find all digit matches in a region using template matching (no sliding)."""
@@ -159,7 +152,7 @@ class SharedDigitDetector:
         """Find all digits in a region using optimized template matching (replaces sliding window)."""
         return self.find_all_digit_matches(number_region, template_type, confidence_threshold)
     
-    def find_digits_and_separator_by_sliding(self, record_region, confidence_threshold=0.95):
+    def find_digits_and_separator(self, record_region, confidence_threshold=0.95):
         """Find all digits and separator in a record region using optimized template matching."""
         if record_region.size == 0:
             return []
@@ -202,22 +195,17 @@ class SharedDigitDetector:
         """Reconstruct a number from digit matches sorted by position."""
         if not matches:
             return None
-        
-        # Filter out non-digit matches
-        digit_matches = [m for m in matches if isinstance(m['digit'], int)]
-        
+        # Filter out non-digit matches (digits are '0'-'9' as strings)
+        digit_matches = [m for m in matches if m['digit'].isdigit()]
         if not digit_matches:
             return None
-        
         # Sort by x-position (should already be sorted)
         digit_matches.sort(key=lambda x: x['x_position'])
-        
         # Reconstruct number
-        number_str = ''.join(str(match['digit']) for match in digit_matches)
-        
+        number_str = ''.join(m['digit'] for m in digit_matches)
         try:
             number = int(number_str)
-            avg_confidence = sum(match['confidence'] for match in digit_matches) / len(digit_matches)
+            avg_confidence = sum(m['confidence'] for m in digit_matches) / len(digit_matches)
             return {
                 'number': number,
                 'confidence': avg_confidence,
@@ -230,46 +218,38 @@ class SharedDigitDetector:
         """Reconstruct wins-losses from matches that include separator."""
         if not matches:
             return None
-        
         # Sort by x-position
         matches.sort(key=lambda x: x['x_position'])
-        
         # Find separator position
         separator_index = None
         for i, match in enumerate(matches):
             if match['digit'] == 'separator':
                 separator_index = i
                 break
-        
         if separator_index is None:
             return None
-        
         # Split into wins (before separator) and losses (after separator)
-        wins_matches = [m for m in matches[:separator_index] if isinstance(m['digit'], int)]
-        losses_matches = [m for m in matches[separator_index + 1:] if isinstance(m['digit'], int)]
-        
+        wins_matches = [m for m in matches[:separator_index] if m['digit'].isdigit()]
+        losses_matches = [m for m in matches[separator_index + 1:] if m['digit'].isdigit()]
         # Reconstruct wins
         wins = None
         if wins_matches:
-            wins_str = ''.join(str(match['digit']) for match in wins_matches)
+            wins_str = ''.join(m['digit'] for m in wins_matches)
             try:
                 wins = int(wins_str)
             except ValueError:
                 wins = None
-        
         # Reconstruct losses
         losses = None
         if losses_matches:
-            losses_str = ''.join(str(match['digit']) for match in losses_matches)
+            losses_str = ''.join(m['digit'] for m in losses_matches)
             try:
                 losses = int(losses_str)
             except ValueError:
                 losses = None
-        
         # Calculate average confidence
         all_digit_matches = wins_matches + losses_matches
-        avg_confidence = sum(match['confidence'] for match in all_digit_matches) / len(all_digit_matches) if all_digit_matches else 0.0
-        
+        avg_confidence = sum(m['confidence'] for m in all_digit_matches) / len(all_digit_matches) if all_digit_matches else 0.0
         return {
             'wins': wins,
             'losses': losses,

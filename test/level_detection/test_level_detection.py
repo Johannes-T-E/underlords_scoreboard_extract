@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from utils import AnalysisConfig, load_and_preprocess_image, get_row_boundaries
+from components.utils import AnalysisConfig, load_and_preprocess_image, get_row_boundaries
 from components.player_extraction import PlayerExtractor
 import os
 

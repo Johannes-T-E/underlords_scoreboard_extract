@@ -1,6 +1,6 @@
 import cv2
 import os
-from utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image
+from components.utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image
 
 # Player column position constants
 PLAYER_COLUMN_X_START = 28

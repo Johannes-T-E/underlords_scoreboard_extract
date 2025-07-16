@@ -2,13 +2,7 @@ import cv2
 import sys
 import os
 
-# Handle imports for both standalone and module execution
-try:
-    from utils import get_row_boundaries
-except ImportError:
-    # If running from components folder, add parent directory to path
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from utils import AnalysisConfig, get_row_boundaries, load_and_preprocess_image, get_header_positions
+from components.utils import AnalysisConfig, get_row_boundaries, load_and_preprocess_image, get_header_positions
 from components.hero_extraction import calculate_crew_slots, calculate_bench_slots
 from components.image_processing import create_all_slots_masks, load_template_masks, analyze_all_masks
 

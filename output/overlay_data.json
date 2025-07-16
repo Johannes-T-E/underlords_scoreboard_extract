@@ -1,0 +1,58 @@
+[
+  {
+    "row": 0,
+    "player_name": "Jia Bot",
+    "level": 4,
+    "gold": 28,
+    "health": 100
+  },
+  {
+    "row": 1,
+    "player_name": "Kawhi Bot",
+    "level": 4,
+    "gold": 27,
+    "health": 96
+  },
+  {
+    "row": 2,
+    "player_name": "Gwendoline Bot",
+    "level": 4,
+    "gold": 30,
+    "health": 94
+  },
+  {
+    "row": 3,
+    "player_name": "Charles Bot",
+    "level": 3,
+    "gold": 33,
+    "health": 94
+  },
+  {
+    "row": 4,
+    "player_name": "Sylvie Bot",
+    "level": 4,
+    "gold": 32,
+    "health": 93
+  },
+  {
+    "row": 5,
+    "player_name": "Nguyen Bot",
+    "level": 3,
+    "gold": 28,
+    "health": 88
+  },
+  {
+    "row": 6,
+    "player_name": "Kalle",
+    "level": 4,
+    "gold": 32,
+    "health": 87
+  },
+  {
+    "row": 7,
+    "player_name": "Dale Bot",
+    "level": 3,
+    "gold": 33,
+    "health": 84
+  }
+]

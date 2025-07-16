@@ -4,15 +4,8 @@ import os
 import glob
 import sys
 
-# Handle imports for both standalone and module execution
-try:
-    from utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image, get_header_positions
-    from components.shared_digit_detector import shared_detector
-except ImportError:
-    # If running from components folder, add parent directory to path
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image, get_header_positions
-    from components.shared_digit_detector import shared_detector
+from components.utils import get_row_boundaries, AnalysisConfig, load_and_preprocess_image, get_header_positions
+from components.shared_digit_detector import shared_detector
 
 
 class NetWorthDigitDetector:
@@ -177,9 +170,8 @@ class NetWorthExtractor:
         if networth_region.size == 0:
             return 0
         
-        # Try sliding digit detection using shared detector
         # Find all digit matches using sliding window
-        digit_matches = shared_detector.find_digits_by_sliding(networth_region, 'networth')
+        digit_matches = shared_detector.find_all_digit_matches(networth_region, 'networth', confidence_threshold=0.95)
         
         if digit_matches:
             # Reconstruct number from digit matches
@@ -187,11 +179,11 @@ class NetWorthExtractor:
             
             if number_result and number_result['number'] >= 0 and number_result['number'] <= 1000:
                 if self.debug:
-                    print(f"Found networth by sliding digits: {number_result['number']} (confidence: {number_result['confidence']:.3f}, digits: {number_result['digit_count']})")
+                    print(f"Found networth by using find_all_digit_matches: {number_result['number']} (confidence: {number_result['confidence']:.3f}, digits: {number_result['digit_count']})")
                 return number_result['number']
         
         # Fallback to OCR if needed
-        try:
+        """ try:
             import pytesseract
             networth_region_processed = self._preprocess_for_ocr(networth_region)
             networth_text = pytesseract.image_to_string(networth_region_processed, config='--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789').strip()
@@ -205,7 +197,7 @@ class NetWorthExtractor:
         except Exception as e:
             if self.debug:
                 print(f"NetWorth OCR error: {e}")
-            return 0
+            return 0 """
     
     def _preprocess_for_ocr(self, region):
         """Preprocess image region for better OCR results."""
